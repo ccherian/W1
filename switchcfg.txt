@@ -1,0 +1,219 @@
+
+!
+version 12.2
+no service pad
+service timestamps debug uptime
+service timestamps log uptime
+service password-encryption
+!
+hostname ccherian-3750
+!
+enable secret 5 $1$VNOx$BGxmsamd5E3kT26ygvJEy.
+!
+username ccherian privilege 15 password 7 040A05105C32584D0A
+no aaa new-model
+switch 1 provision ws-c3750-24p
+vtp domain CHERIAN
+vtp mode transparent
+ip subnet-zero
+ip routing
+ip domain-name ccherian.com.au
+ip dhcp excluded-address 10.1.10.1 10.1.10.10
+!
+ip dhcp pool Vlan10
+   network 10.1.10.0 255.255.255.0
+   default-router 10.1.10.1 
+   lease 60
+!
+!
+!
+crypto pki trustpoint TP-self-signed-1394086400
+ enrollment selfsigned
+ subject-name cn=IOS-Self-Signed-Certificate-1394086400
+ revocation-check none
+ rsakeypair TP-self-signed-1394086400
+!
+!
+crypto ca certificate chain TP-self-signed-1394086400
+ certificate self-signed 01
+  308202B1 3082021A A0030201 02020101 300D0609 2A864886 F70D0101 04050030 
+  5F312F30 2D060355 04031326 494F532D 53656C66 2D536967 6E65642D 43657274 
+  69666963 6174652D 31333934 30383634 3030312C 302A0609 2A864886 F70D0109 
+  02161D63 63686572 69616E2D 33373530 2E636368 65726961 6E2E636F 6D2E6175 
+  301E170D 39333033 30313030 30313232 5A170D32 30303130 31303030 3030305A 
+  305F312F 302D0603 55040313 26494F53 2D53656C 662D5369 676E6564 2D436572 
+  74696669 63617465 2D313339 34303836 34303031 2C302A06 092A8648 86F70D01 
+  0902161D 63636865 7269616E 2D333735 302E6363 68657269 616E2E63 6F6D2E61 
+  7530819F 300D0609 2A864886 F70D0101 01050003 818D0030 81890281 8100BA15 
+  484B083F AFA8CE6A E530615E 870D910D 6DA04206 6F877526 900272E3 392E1730 
+  B583E484 CF71E39D 4BF0A065 7114A981 96FA4E0C 66542CF5 A74E95B5 55F84FA0 
+  09C44BBB 1398B8D5 2EB35EE5 C18C992B 811FB723 249B3C20 33BA3D16 CE209895 
+  CCE4A629 26649DDE 39669011 758C6247 15663325 44714E9A CD60C034 61090203 
+  010001A3 7D307B30 0F060355 1D130101 FF040530 030101FF 30280603 551D1104 
+  21301F82 1D636368 65726961 6E2D3337 35302E63 63686572 69616E2E 636F6D2E 
+  6175301F 0603551D 23041830 1680145E E70DD9F1 1FE387F0 FB931A86 E79B9146 
+  ADCD7430 1D060355 1D0E0416 04145EE7 0DD9F11F E387F0FB 931A86E7 9B9146AD 
+  CD74300D 06092A86 4886F70D 01010405 00038181 00B04B66 2D4B14EE B9F892BD 
+  538148CA A5B7908E 4FA204DB 4804A3A2 1F0B7631 7C6120B2 361C0DA9 FB4854B3 
+  C3E98B52 05CF682C 743BC4A2 D8F48A06 7C68A89E 418AA9C4 BF1C95AE E044A8E2 
+  721469C7 5F3FD03B 0C865F53 8A9544E8 6A18D859 A81C2EF3 CD95B3CC 89329970 
+  FAB0CA1B 26A3308B 8D986006 91CFEE97 1608C60A 8C
+  quit
+!
+!
+no file verify auto
+!
+spanning-tree mode rapid-pvst
+spanning-tree extend system-id
+spanning-tree vlan 1-4094 priority 8192
+!
+vlan internal allocation policy ascending
+!
+vlan 8
+ name Vlan8-L2
+!
+vlan 9
+ name Vlan9-L2
+!
+vlan 10
+ name Vlan10-L2
+!
+vlan 11
+ name Vlan11-L2
+!
+vlan 12
+ name Vlan12-L2
+!
+vlan 13
+ name Vlan13-L2
+!
+vlan 14
+ name Vlan14-L2
+!
+vlan 15
+ name Vlan15-L2
+!
+!
+interface FastEthernet1/0/1
+ description Uplink
+ switchport mode access
+!
+interface FastEthernet1/0/2
+ switchport mode access
+ spanning-tree portfast
+!
+interface FastEthernet1/0/3
+ switchport mode access
+ spanning-tree portfast
+!
+interface FastEthernet1/0/4
+ switchport mode access
+ spanning-tree portfast
+!
+interface FastEthernet1/0/5
+ switchport mode access
+ spanning-tree portfast
+!
+interface FastEthernet1/0/6
+!
+interface FastEthernet1/0/7
+!
+interface FastEthernet1/0/8
+!
+interface FastEthernet1/0/9
+!
+interface FastEthernet1/0/10
+!
+interface FastEthernet1/0/11
+!
+interface FastEthernet1/0/12
+!
+interface FastEthernet1/0/13
+!
+interface FastEthernet1/0/14
+!
+interface FastEthernet1/0/15
+!
+interface FastEthernet1/0/16
+!
+interface FastEthernet1/0/17
+!
+interface FastEthernet1/0/18
+!
+interface FastEthernet1/0/19
+!
+interface FastEthernet1/0/20
+!
+interface FastEthernet1/0/21
+!
+interface FastEthernet1/0/22
+!
+interface FastEthernet1/0/23
+!
+interface FastEthernet1/0/24
+!
+interface GigabitEthernet1/0/1
+!
+interface GigabitEthernet1/0/2
+!
+interface Vlan1
+ ip address 10.1.1.4 255.255.255.0
+!
+interface Vlan8
+ description Vlan8-L3
+ ip address 10.1.8.1 255.255.255.0
+!
+interface Vlan9
+ description Vlan9-L3
+ ip address 10.1.9.1 255.255.255.0
+!
+interface Vlan10
+ description Vlan10-L3
+ ip address 10.1.10.1 255.255.255.0
+!
+interface Vlan11
+ description Vlan11-L3
+ ip address 10.1.11.1 255.255.255.0
+!
+interface Vlan12
+ description Vlan12-L3
+ ip address 10.1.12.1 255.255.255.0
+!
+interface Vlan13
+ description Vlan13-L3
+ ip address 10.1.13.1 255.255.255.0
+!
+interface Vlan14
+ description Vlan14-L3
+ ip address 10.1.14.1 255.255.255.0
+!
+interface Vlan15
+ description Vlan15-L3
+ ip address 10.1.15.1 255.255.255.0
+!
+router rip
+ version 2
+ passive-interface default
+ network 10.0.0.0
+!
+ip default-gateway 10.1.1.1
+ip classless
+ip http server
+ip http secure-server
+!
+!
+!
+control-plane
+!
+!
+line con 0
+ password 7 14461C1D5F173E2827
+ login local
+line vty 0 4
+ password 7 14461C1D5F173E2827
+ login local
+line vty 5 15
+ password 7 0355551D551C354F4D
+ login local
+!
+end
